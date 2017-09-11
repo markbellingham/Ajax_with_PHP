@@ -1,6 +1,7 @@
 <?php
 session_start();
 
+$_SESSION['favourites'] = [];
 if(!isset($_SESSION['favourites'])) { $_SESSION['favourites'] = []; }
 ?>
 
@@ -30,6 +31,7 @@ if(!isset($_SESSION['favourites'])) { $_SESSION['favourites'] = []; }
     </style>
   </head>
   <body>
+    <?php echo join(', ', $_SESSION['favourites']); ?>
     <div id="blog-posts">
       <div id="blog-post-101" class="blog-post">
         <h3>Blog Post 101</h3>
