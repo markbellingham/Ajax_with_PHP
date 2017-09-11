@@ -1,8 +1,12 @@
 <?php
 session_start();
 
-$_SESSION['favourites'] = [];
+// $_SESSION['favourites'] = [];
 if(!isset($_SESSION['favourites'])) { $_SESSION['favourites'] = []; }
+
+function is_favourite($id) {
+  return in_array($id, $_SESSION['favourites']);
+}
 ?>
 
 <!doctype html>
@@ -42,7 +46,7 @@ if(!isset($_SESSION['favourites'])) { $_SESSION['favourites'] = []; }
   </head>
   <body>
     <div id="blog-posts">
-      <div id="blog-post-101" class="blog-post">
+      <div id="blog-post-101" class="blog-post <?php if(is_favourite(101)) { echo 'favourite'; } ?> ">
         <span class="favourite-heart">&hearts;</span>
         <h3>Blog Post 101</h3>
         <p>
@@ -50,7 +54,7 @@ if(!isset($_SESSION['favourites'])) { $_SESSION['favourites'] = []; }
         </p>
         <button class="favourite-button">Favourite</button>
       </div> <!-- ends blog-post-101 -->
-      <div id="blog-post-102" class="blog-post">
+      <div id="blog-post-102" class="blog-post <?php if(is_favourite(102)) { echo 'favourite'; } ?> ">
         <span class="favourite-heart">&hearts;</span>
         <h3>Blog Post 102</h3>
         <p>
@@ -58,7 +62,7 @@ if(!isset($_SESSION['favourites'])) { $_SESSION['favourites'] = []; }
         </p>
         <button class="favourite-button">Favourite</button>
       </div> <!-- ends blog-post-102 -->
-      <div id="blog-post-103" class="blog-post">
+      <div id="blog-post-103" class="blog-post <?php if(is_favourite(103)) { echo 'favourite'; } ?> ">
         <span class="favourite-heart">&hearts;</span>
         <h3>Blog Post 103</h3>
         <p>
