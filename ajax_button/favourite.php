@@ -9,4 +9,8 @@ function is_ajax_request() {
 
 if(!is_ajax_request()) { exit; }
 
+$raw_id = isset($_POST['id']) ? $_POST['id'] : '';
+
+echo $raw_id;
+
 ?>
