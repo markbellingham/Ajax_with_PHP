@@ -6,6 +6,7 @@
   <style>
   #result { display: none; }
   .error { border: 1px solid red; }
+  #spinner { display: none; }
   </style>
 </head>
 <body>
@@ -24,6 +25,10 @@
     </form>
   </div> <!-- ends measurements -->
 
+  <div id="spinner">
+    <img src="spinner.gif" width="50" height="50" />
+  </div> <!-- ends spinner -->
+
   <div id="result">
     <p>The total volume is: <span id="volume"></span></p>
   </div> <!-- ends result -->
@@ -32,6 +37,28 @@
 
   var result_div = document.getElementById("result");
   var volume = document.getElementById('volume');
+  var button = document.getElementById("ajax-submit");
+  var orig_button_value = button.value;
+
+  function showSpinner() {
+    var spinner = document.getElementById("spinner");
+    spinner.style.display = 'block';
+  }
+
+  function hideSpinner() {
+    var spinner = document.getElementById("spinner");
+    spinner.style.display = 'none';
+  }
+
+  function disableSubmitButton() {
+    button.disabled = true;
+    button.value = 'Loading...';
+  }
+
+  function enableSubmitButton() {
+    button.disabled = false;
+    button.value = orig_button_value;
+  }
 
   function displayErrors(errors) {
     var inputs = document.getElementsByTagName('input');
@@ -74,6 +101,8 @@
   function calculateMeasurements() {
     clearResult();
     clearErrors();
+    showSpinner();
+    disableSubmitButton();
 
     var form = document.getElementById("measurement-form");
     var action = form.getAttribute("action");
@@ -92,6 +121,8 @@
       if(xhr.readyState == 4 && xhr.status == 200) {
         var result = xhr.responseText;
         console.log('Result: ' + result);
+        hideSpinner();
+        enableSubmitButton();
         var json = JSON.parse(result);
         if(json.hasOwnProperty('errors') &&  json.errors.length > 0) {
           displayErrors(json.errors);
@@ -103,7 +134,6 @@
     xhr.send(form_data);
   }
 
-  var button = document.getElementById("ajax-submit");
   button.addEventListener("click", calculateMeasurements);
 
   </script>
