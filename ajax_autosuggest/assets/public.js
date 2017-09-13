@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
   var search = document.getElementById("search");
 
   function showSuggestions(json) {
-
+    suggestions.style.display = 'block';
   }
 
   function getSuggestions() {
@@ -28,5 +28,5 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   // search.addEventListener("", getSuggestions, false);
-  
+
 });
